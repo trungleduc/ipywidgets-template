@@ -18,12 +18,11 @@
     },{% else %}"{{ author_name }}",{% endif %}
     "files": [
         "lib/**/*.{d.ts,eot,gif,html,jpg,js,js.map,json,png,svg,woff2,ttf}",
-        "style/**/*.{css,js,eot,gif,html,jpg,json,png,svg,woff2,ttf}"{% if has_settings %},
-        "schema/*.json"{% endif %}
+        "style/**/*.{css,js,eot,gif,html,jpg,json,png,svg,woff2,ttf}"
     ],
     "main": "lib/index.js",
-    "types": "lib/index.d.ts",{% if kind != 'theme' %}
-    "style": "style/index.css",{% endif %}
+    "types": "lib/index.d.ts",
+    "style": "style/index.css",
     "repository": {
         "type": "git",
         "url": "{{ repository }}.git"
@@ -49,24 +48,18 @@
         "prettier:base": "prettier \"**/*{.ts,.tsx,.js,.jsx,.css,.json,.md}\"",
         "prettier:check": "jlpm prettier:base --check",
         "stylelint": "jlpm stylelint:check --fix",
-        "stylelint:check": "stylelint --cache \"style/**/*.css\"",{% if test %}
-        "test": "jest --coverage",{% endif %}
+        "stylelint:check": "stylelint --cache \"style/**/*.css\"",
+        "test": "jest --coverage",
         "watch": "run-p watch:src watch:labextension",
         "watch:src": "tsc -w --sourceMap",
         "watch:labextension": "jupyter labextension watch ."
     },
     "dependencies": {
-        {% if kind.lower() != 'mimerenderer' %}"@jupyterlab/application": "^4.0.0"{% if kind.lower() == 'theme' %},
-        "@jupyterlab/apputils": "^4.0.0"{% endif %}{% if has_settings %},
-        "@jupyterlab/settingregistry": "^4.0.0"{% endif %}{% if kind.lower() == 'server' %},
-        "@jupyterlab/coreutils": "^6.0.0",
-        "@jupyterlab/services": "^7.0.0"{% endif %}{% else %}"@jupyterlab/rendermime-interfaces": "^3.8.0",
-        "@lumino/widgets": "^2.1.0"{% endif %}
+        "@jupyter-widgets/base": "^1.1.10 || ^2 || ^3 || ^4 || ^5 || ^6",
+        "@jupyterlab/application": "^4.0.0"
     },
     "devDependencies": {
-        "@jupyterlab/builder": "^4.0.0",{% if test %}
-        "@jupyterlab/testutils": "^4.0.0",
-        "@types/jest": "^29.2.0",{% endif %}
+        "@jupyterlab/builder": "^4.0.0",
         "@types/json-schema": "^7.0.11",
         "@types/react": "^18.0.26",
         "@types/react-addons-linked-state-mixin": "^0.14.22",
@@ -75,9 +68,7 @@
         "css-loader": "^6.7.1",
         "eslint": "^8.36.0",
         "eslint-config-prettier": "^8.8.0",
-        "eslint-plugin-prettier": "^5.0.0",{% if test %}
-        "jest": "^29.2.0",{% endif %}{% if kind.lower() == 'server' %}
-        "mkdirp": "^1.0.3",{% endif %}
+        "eslint-plugin-prettier": "^5.0.0",
         "npm-run-all": "^4.1.5",
         "prettier": "^3.0.0",
         "rimraf": "^5.0.1",
@@ -92,39 +83,28 @@
         "yjs": "^13.5.0"
     },
     "sideEffects": [
-        "style/*.css"{% if kind.lower() != 'theme' %},
+        "style/*.css",
         "style/index.js"
     ],
-    "styleModule": "style/index.js",{% else %}
-    ],{% endif %}
+    "styleModule": "style/index.js",
     "publishConfig": {
         "access": "public"
     },
-    "jupyterlab": { {%- if kind.lower() == 'server' %}
-        "discovery": {
-        "server": {
-            "managers": [
-                "pip"
-            ],
-            "base": {
-                "name": "{{ python_name }}"
+    "jupyterlab": { 
+        "extension": true,
+        "outputDir": "{{python_name}}/labextension",
+        "sharedPackages": {
+            "@jupyter-widgets/base": {
+                "bundled": false,
+                "singleton": true
             }
         }
-        },{% endif %}{% if kind.lower() == 'mimerenderer' %}
-        "mimeExtension": true,{% else %}
-        "extension": true,{% endif %}
-        "outputDir": "{{python_name}}/labextension"{% if has_settings %},
-        "schemaDir": "schema"{% endif %}{% if kind.lower() == 'theme' %},
-        "themePath": "style/index.css"{% endif %}
     },
     "eslintIgnore": [
         "node_modules",
         "dist",
         "coverage",
-        "**/*.d.ts"{% if test %},
-        "tests",
-        "**/__tests__",
-        "ui-tests"{% endif %}
+        "**/*.d.ts"
     ],
     "eslintConfig": {
         "extends": [
@@ -206,11 +186,8 @@
         "rules": {
             "csstree/validator": true,
             "property-no-vendor-prefix": null,
-            "selector-class-pattern": "^([a-z][A-z\\d]*)(-[A-z\\d]+)*$",
             "selector-no-vendor-prefix": null,
-            "value-no-vendor-prefix": null{% if kind.lower() == "theme" %},
-            "alpha-value-notation": null,
-            "color-function-notation": null{% endif %}
+            "value-no-vendor-prefix": null
         }
     }
 }

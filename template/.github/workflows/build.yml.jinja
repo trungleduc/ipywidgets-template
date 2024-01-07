@@ -39,11 +39,7 @@ jobs:
       run: |
         set -eux
         python -m pip install .[test]
-{% if kind.lower() == 'server' %}{% if test %}
-        pytest -vv -r ap --cov {{ python_name }}{% endif %}
-        jupyter server extension list
-        jupyter server extension list 2>&1 | grep -ie "{{ python_name }}.*OK"
-{% endif %}
+
         jupyter labextension list
         jupyter labextension list 2>&1 | grep -ie "{{ labextension_name }}.*OK"
         python -m jupyterlab.browser_check
@@ -85,10 +81,6 @@ jobs:
 
         pip install "jupyterlab>=4.0.0,<5" {{ python_name }}*.whl
 
-{% if kind.lower() == 'server' %}
-        jupyter server extension list
-        jupyter server extension list 2>&1 | grep -ie "{{ python_name }}.*OK"
-{% endif %}
         jupyter labextension list
         jupyter labextension list 2>&1 | grep -ie "{{ labextension_name }}.*OK"
         python -m jupyterlab.browser_check --no-browser-test

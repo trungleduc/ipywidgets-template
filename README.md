@@ -1,13 +1,8 @@
-# JupyterLab extension template
+# jupyter widgets extension template
 
 [![Github Actions Status](https://github.com/jupyterlab/extension-template/workflows/CI/badge.svg)](https://github.com/jupyterlab/extension-template/actions/workflows/main.yml)
 
-A [copier](https://copier.readthedocs.io) template for creating
-a JupyterLab extension. Four kinds of extension are supported:
-- _frontend_: Pure frontend extension written in TypeScript.
-- _mimerenderer_: MIME renderer extension.
-- _server_: Extension with frontend (in TypeScript) and backend (in Python) parts.
-- _theme_: Theme for JupyterLab (using CSS variables).
+A [copier](https://copier.readthedocs.io) template for creating custom Jupyter widget projects.
 
 ## Use the template to create extension
 
@@ -71,7 +66,3 @@ copier update
 ```
 
 > If you use copier v8+, you will need to pass the flag `--UNSAFE` (see [documentation](https://copier.readthedocs.io/en/stable/configuring/#unsafe)).
-
-## A simple example
-
-Your new extension includes a very simple example of a working extension. Use this example as a guide to build your own extension. Have a look at the [extension examples](https://github.com/jupyterlab/extension-examples) repository for more information on various JupyterLab features.
